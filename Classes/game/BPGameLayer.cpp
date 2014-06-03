@@ -85,12 +85,12 @@ void BPGameLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
             BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
             if (pDoor->IsOpenDoor()) {
                 if (pDoor->boundingBox().containsPoint(loc)) {
-                    CCLog("Hello");
-                    CCBAnimationManager *pAnim = ITGUtil::sharedUtils()->getAnimationManagerFromReadCCBI("BPBloodEffect.ccbi", NULL, this, 1000);
-                    CCParticleSystemQuad *explode = (CCParticleSystemQuad*)pAnim->getRootNode();
-                    explode->setPosition(loc);
-                    explode->setAutoRemoveOnFinish(true);
+                    CCParticleSystemQuad *pExplode = (CCParticleSystemQuad*)ITGUtil::sharedUtils()->getNodeFromReadCCBI("BPBloodEffect.ccbi", NULL);
+                    addChild(pExplode, 1000);
+                    pExplode->setPosition(loc);
+                    pExplode->setAutoRemoveOnFinish(true);
                     pDoor->setOpenDoor(false);
+                    pExplode->resetSystem();
                     
                     BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
                     pElevator->resetAppearHuman();
@@ -273,6 +273,7 @@ bool BPGameLayer::moveVelocity(cocos2d::CCTouch *pTouch)
 
 void BPGameLayer::updateMovingDoors(float delta)
 {
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     if (m_tCurrentVelocity.equals(CCPointZero))
     {
         if (m_arrVectorList.empty())
@@ -322,6 +323,40 @@ void BPGameLayer::updateMovingDoors(float delta)
         p = ccpAdd(p, m_tCurrentVelocity);
         
         pNode->setPosition(p);
+    }
+    
+    //  left
+    if (m_tCurrentVelocity.x < 0)
+    {
+        BPDoorNode *pDoorFirst = (BPDoorNode*)m_arrDoorList->objectAtIndex(0);
+        float fFirstX = pDoorFirst->getPositionX();
+        float fFirstSize = pDoorFirst->getContentSize().width;
+        
+        if (fFirstX + fFirstSize < -winSize.width) {
+            BPDoorNode *pDoorLast = (BPDoorNode*)m_arrDoorList->lastObject();
+            
+            float offset_x = pDoorLast->getPositionX() + m_fCellWidth;
+            pDoorFirst->setPositionX(offset_x);
+            
+            m_arrDoorList->removeObject(pDoorFirst);
+            m_arrDoorList->addObject(pDoorFirst);
+        }
+    }
+    else    //  right
+    {
+        BPDoorNode *pDoorLast = (BPDoorNode*)m_arrDoorList->lastObject();
+        float fLastX = pDoorLast->getPositionX();
+        
+        if (fLastX > winSize.width * 2)
+        {
+            BPDoorNode *pDoorFirst = (BPDoorNode*)m_arrDoorList->objectAtIndex(0);
+            float offset_x = pDoorFirst->getPositionX() - m_fCellWidth;
+            pDoorLast->setPositionX(offset_x);
+            
+            m_arrDoorList->removeObject(pDoorLast);
+            m_arrDoorList->insertObject(pDoorLast, 0);
+        }
+        
     }
     
     if (m_iScrollingCount <= 0)
