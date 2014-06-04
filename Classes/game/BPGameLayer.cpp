@@ -85,11 +85,14 @@ void BPGameLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
             BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
             if (pDoor->IsOpenDoor()) {
                 if (pDoor->boundingBox().containsPoint(loc)) {
+                    CCLog("fire");
                     CCParticleSystemQuad *pExplode = (CCParticleSystemQuad*)ITGUtil::sharedUtils()->getNodeFromReadCCBI("BPBloodEffect.ccbi", NULL);
                     addChild(pExplode, 1000);
                     pExplode->setPosition(loc);
                     pExplode->setAutoRemoveOnFinish(true);
-                    pDoor->setOpenDoor(false);
+//                    pDoor->setOpenDoor(false);
+                    pDoor->closeDoor();
+
                     pExplode->resetSystem();
                     
                     BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
@@ -114,6 +117,8 @@ void BPGameLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
 void BPGameLayer::arrivedHuman(BPElevatorNode *pElevator)
 {
     CCLog("BPGameLayer::arrivedHuman : %d", pElevator->getElevatorNumber());
+    visibleDoorsCheck();
+    doorsStatusCheck();
 }
 
 
@@ -256,10 +261,12 @@ bool BPGameLayer::moveVelocity(cocos2d::CCTouch *pTouch)
 //            CCLog("velocity size : %lu, %f", m_arrVectorList.size(), tVector.x);
             
             if (!m_bDoorMoving) {
-                if (m_bNoMovingTimeCount) {
-                    m_bNoMovingTimeCount = false;
-                    unschedule(schedule_selector(BPGameLayer::updateStatus));
-                }
+//                if (m_bNoMovingTimeCount) {
+//                    m_bNoMovingTimeCount = false;
+//                    unschedule(schedule_selector(BPGameLayer::updateStatus));
+//                }
+                doorsCancelResearvedOpen();
+//                doorsStatusCheck();
                 m_iScrollingCount = 10;
                 m_bDoorMoving = true;
                 schedule(schedule_selector(BPGameLayer::updateMovingDoors));
@@ -284,27 +291,28 @@ void BPGameLayer::updateMovingDoors(float delta)
             unschedule(schedule_selector(BPGameLayer::updateMovingDoors));
             
             //  화면에 등장하고 있는 문 체크
-            CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-            CCRect winRect = CCRectMake(0, 0, winSize.width, winSize.height);
-            for (int i=0; i<m_arrDoorList->count(); i++) {
-                BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
-                if (winRect.containsPoint(pDoor->getPosition())) {
-                    //  open ready
-                    pDoor->setEnableOpenDoor(true);
-                }
-                else
-                {
-                    //  disable open
-                    pDoor->setEnableOpenDoor(false);
-                }
-            }
+//            CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+//            CCRect winRect = CCRectMake(0, 0, winSize.width, winSize.height);
+//            for (int i=0; i<m_arrDoorList->count(); i++) {
+//                BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+//                if (winRect.containsPoint(pDoor->getPosition())) {
+//                    //  open ready
+//                    pDoor->setEnableOpenDoor(true);
+//                }
+//                else
+//                {
+//                    //  disable open
+//                    pDoor->setEnableOpenDoor(false);
+//                }
+//            }
+            visibleDoorsCheck();
             
             //  count down stop ready
             if (!m_bNoMovingTimeCount)
             {
                 m_eGameStatus = kGAME_STATUS_DOOR_MOVING_STOP;
                 m_bNoMovingTimeCount = true;
-                schedule(schedule_selector(BPGameLayer::updateStatus));
+//                schedule(schedule_selector(BPGameLayer::updateStatus));
                 
             }
             
@@ -366,37 +374,79 @@ void BPGameLayer::updateMovingDoors(float delta)
 
 }
 
-void BPGameLayer::updateStatus(float delta)
+//void BPGameLayer::updateStatus(float delta)
+//{
+//    if (m_eGameStatus == kGAME_STATUS_HUMAN_APPEAR_READY)
+//    {
+//        m_fDeltaTime += delta;
+//        if (m_fDeltaTime > 1) {
+//            m_fDeltaTime = 0;
+//            for (int i=0; i<m_arrDoorList->count(); i++) {
+//                BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+//                if (pDoor->getEnableOpenDoor() && !pDoor->IsOpenDoor())
+//                {
+//                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
+//                    if (pElevator->IsArrivedHuman())
+//                    {
+////                        pDoor->setOpenDoor(true);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    else if(m_eGameStatus == kGAME_STATUS_DOOR_MOVING_STOP)
+//    {
+//        m_fNoMovingTimeDelta += delta;
+//        if (m_fNoMovingTimeDelta > m_fNoMovingLimitTime) {
+//            m_eGameStatus = kGAME_STATUS_HUMAN_APPEAR_READY;
+//            m_fNoMovingTimeDelta = 0;
+//            m_fDeltaTime = 0;
+//        }
+//    }
+//}
+
+
+void BPGameLayer::doorsStatusCheck()
 {
-    if (m_eGameStatus == kGAME_STATUS_HUMAN_APPEAR_READY)
-    {
-        m_fDeltaTime += delta;
-        if (m_fDeltaTime > 1) {
-            m_fDeltaTime = 0;
-            for (int i=0; i<m_arrDoorList->count(); i++) {
-                BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
-                if (pDoor->getEnableOpenDoor() && !pDoor->IsOpenDoor())
-                {
-                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
-                    if (pElevator->IsArrivedHuman())
-                    {
-                        pDoor->setOpenDoor(true);
-                        break;
-                    }
-                }
+    for (int i=0; i<m_arrDoorList->count(); i++) {
+        BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+        if (pDoor->getEnableOpenDoor() && !pDoor->IsOpenDoor())
+        {
+            BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
+            if (pElevator->IsArrivedHuman())
+            {
+                pDoor->prepareOpenDoor();
+                break;
             }
-        }
-    }
-    else if(m_eGameStatus == kGAME_STATUS_DOOR_MOVING_STOP)
-    {
-        m_fNoMovingTimeDelta += delta;
-        if (m_fNoMovingTimeDelta > m_fNoMovingLimitTime) {
-            m_eGameStatus = kGAME_STATUS_HUMAN_APPEAR_READY;
-            m_fNoMovingTimeDelta = 0;
-            m_fDeltaTime = 0;
         }
     }
 }
 
+void BPGameLayer::doorsCancelResearvedOpen()
+{
+    for (int i=0; i<m_arrDoorList->count(); i++) {
+        BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+        pDoor->clearOpenDoor();
+    }
+}
 
+void BPGameLayer::visibleDoorsCheck()
+{
+    //  화면에 등장하고 있는 문 체크
+    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCRect winRect = CCRectMake(0, 0, winSize.width, winSize.height);
+    for (int i=0; i<m_arrDoorList->count(); i++) {
+        BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+        if (winRect.containsPoint(pDoor->getPosition())) {
+            //  open ready
+            pDoor->setEnableOpenDoor(true);
+        }
+        else
+        {
+            //  disable open
+            pDoor->setEnableOpenDoor(false);
+        }
+    }
 
+}

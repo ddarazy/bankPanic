@@ -29,7 +29,10 @@ public:
     CREATE_FUNC(BPDoorNode);
     static BPDoorNode* createNode();
     
-    void setOpenDoor(bool bOpen);
+
+    void prepareOpenDoor();
+    void closeDoor();
+    void clearOpenDoor();
     bool IsOpenDoor(){return m_bOpenDoor;};
     
     void setDoorNumber(uint32_t doorNumber);
@@ -49,6 +52,7 @@ protected:
     
     void initObjects();
     
+    void cbOpenDoor();
 
 public:
     CC_SYNTHESIZE(bool, m_bEnableOpenDoor, EnableOpenDoor);

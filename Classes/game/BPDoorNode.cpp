@@ -55,29 +55,31 @@ void BPDoorNode::initObjects()
     m_pEnemyAppearNode->addChild(m_pHumanNode);
 }
 
-void BPDoorNode::setOpenDoor(bool bOpen)
+void BPDoorNode::prepareOpenDoor()
 {
-    if (m_bEnableOpenDoor) {
-        m_bOpenDoor = bOpen;
-        if (m_bOpenDoor) {
-            if (m_pAnimationMng) {
-                m_pAnimationMng->runAnimationsForSequenceNamed("opening");
-            }
-            if (m_pHumanNode) {
-                m_pHumanNode->setVisible(true);
-                m_pHumanNode->appearHuman();
-            }
-        }
-        else
-        {
-            if (m_pAnimationMng) {
-                m_pAnimationMng->runAnimationsForSequenceNamed("closing");
-            }
-            if (m_pHumanNode) {
-                m_pHumanNode->setVisible(false);
-            }
-        }
+    int randTime = arc4random() % 10;
+    CCDelayTime *pDelay = CCDelayTime::create(randTime * 0.5);
+    CCCallFunc *pCB = CCCallFunc::create(this, callfunc_selector(BPDoorNode::cbOpenDoor));
+    CCSequence *pSeq = CCSequence::create(pDelay, pCB, NULL);
+    runAction(pSeq);
+}
+
+void BPDoorNode::closeDoor()
+{
+    m_bOpenDoor = false;
+    if (m_pAnimationMng) {
+        m_pAnimationMng->runAnimationsForSequenceNamed("closing");
     }
+    if (m_pHumanNode) {
+        m_pHumanNode->setVisible(false);
+    }
+}
+
+
+void BPDoorNode::clearOpenDoor()
+{
+    stopAllActions();
+    m_bOpenDoor = false;
 }
 
 void BPDoorNode::setDoorNumber(uint32_t doorNumber)
@@ -87,3 +89,19 @@ void BPDoorNode::setDoorNumber(uint32_t doorNumber)
     szTemp.initWithFormat("%d", doorNumber);
     m_pDoorNumber->setString(szTemp.getCString());
 }
+
+
+#pragma mark callback functions
+void BPDoorNode::cbOpenDoor()
+{
+    m_bOpenDoor = true;
+    if (m_pAnimationMng) {
+        m_pAnimationMng->runAnimationsForSequenceNamed("opening");
+    }
+    if (m_pHumanNode) {
+        m_pHumanNode->setVisible(true);
+        m_pHumanNode->appearHuman();
+    }
+}
+
+

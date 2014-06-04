@@ -78,7 +78,11 @@ protected:
     /**
         @brief 문 이동이 완료된 후 멈춰 있을 때 멈춘 시간을 체크하는 타이머
      */
-    void updateStatus(float delta);
+//    void updateStatus(float delta);
+    void doorsStatusCheck();
+    void doorsCancelResearvedOpen();
+    void visibleDoorsCheck();
+
     
     
 protected:
