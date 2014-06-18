@@ -119,6 +119,10 @@ protected:
     CCPoint                     m_tCurrentVelocity;
     
     eGAME_STATUS                m_eGameStatus;
+    
+    CCArray                     *m_arrBGList;
+    
+    
 
 };
 

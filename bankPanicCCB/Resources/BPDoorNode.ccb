@@ -7,7 +7,7 @@
 	<key>currentResolution</key>
 	<integer>0</integer>
 	<key>currentSequenceId</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>fileType</key>
 	<string>CocosBuilder</string>
 	<key>fileVersion</key>
@@ -24,13 +24,13 @@
 		<array>
 			<dict>
 				<key>baseClass</key>
-				<string>CCLayerColor</string>
+				<string>CCSprite</string>
 				<key>children</key>
 				<array/>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>doorbg</string>
+				<string>doorFrame</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -39,14 +39,14 @@
 				<array>
 					<dict>
 						<key>name</key>
-						<string>contentSize</string>
+						<string>position</string>
 						<key>type</key>
-						<string>Size</string>
+						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>100</real>
-							<real>100</real>
-							<integer>1</integer>
+							<real>116</real>
+							<real>236</real>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
@@ -67,8 +67,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.80000001192092896</real>
+							<real>0.80000001192092896</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -79,57 +79,17 @@
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
 						<key>name</key>
-						<string>touchEnabled</string>
-						<key>platform</key>
-						<string>iOS</string>
+						<string>displayFrame</string>
 						<key>type</key>
-						<string>Check</string>
-						<key>value</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>mouseEnabled</string>
-						<key>platform</key>
-						<string>Mac</string>
-						<key>type</key>
-						<string>Check</string>
-						<key>value</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>color</string>
-						<key>type</key>
-						<string>Color3</string>
+						<string>SpriteFrame</string>
 						<key>value</key>
 						<array>
-							<integer>254</integer>
-							<integer>255</integer>
-							<integer>255</integer>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>opacity</string>
-						<key>type</key>
-						<string>Byte</string>
-						<key>value</key>
-						<integer>255</integer>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>blendFunc</string>
-						<key>type</key>
-						<string>Blendmode</string>
-						<key>value</key>
-						<array>
-							<integer>770</integer>
-							<integer>771</integer>
+							<string>images/bankDoors.plist</string>
+							<string>door_frame.png</string>
 						</array>
 					</dict>
 				</array>
@@ -156,8 +116,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>50</real>
-							<real>50</real>
+							<real>37.699680328369141</real>
+							<real>50.10845947265625</real>
 							<integer>4</integer>
 						</array>
 					</dict>
@@ -198,9 +158,9 @@
 			<dict>
 				<key>animatedProperties</key>
 				<dict>
-					<key>1</key>
+					<key>0</key>
 					<dict>
-						<key>scale</key>
+						<key>position</key>
 						<dict>
 							<key>keyframes</key>
 							<array>
@@ -211,48 +171,177 @@
 										<integer>1</integer>
 									</dict>
 									<key>name</key>
-									<string>scale</string>
+									<string>position</string>
 									<key>time</key>
 									<real>0.0</real>
 									<key>type</key>
-									<integer>4</integer>
+									<integer>3</integer>
 									<key>value</key>
 									<array>
-										<real>0.05000000074505806</real>
-										<real>1</real>
+										<real>133</real>
+										<real>233</real>
 									</array>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>scale</string>
+							<string>position</string>
 							<key>type</key>
-							<integer>4</integer>
+							<integer>3</integer>
+						</dict>
+					</dict>
+					<key>1</key>
+					<dict>
+						<key>displayFrame</key>
+						<dict>
+							<key>keyframes</key>
+							<array>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.0</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_04.png</string>
+										<string>images/bankPanic.plist</string>
+									</array>
+								</dict>
+							</array>
+							<key>name</key>
+							<string>displayFrame</string>
+							<key>type</key>
+							<integer>7</integer>
 						</dict>
 					</dict>
 					<key>2</key>
 					<dict>
-						<key>scale</key>
+						<key>displayFrame</key>
 						<dict>
 							<key>keyframes</key>
 							<array>
 								<dict>
 									<key>easing</key>
 									<dict>
-										<key>opt</key>
-										<real>2</real>
 										<key>type</key>
-										<integer>2</integer>
+										<integer>0</integer>
 									</dict>
 									<key>name</key>
-									<string>scale</string>
+									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
 									<key>type</key>
-									<integer>4</integer>
+									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<real>0.05000000074505806</real>
-										<real>1</real>
+										<string>door_ani_04.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.13333334028720856</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_03.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.26666668057441711</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_02.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.40000000596046448</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_01.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.53333336114883423</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>closed_door.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+							</array>
+							<key>name</key>
+							<string>displayFrame</string>
+							<key>type</key>
+							<integer>7</integer>
+						</dict>
+						<key>position</key>
+						<dict>
+							<key>keyframes</key>
+							<array>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>position</string>
+									<key>time</key>
+									<real>0.40000000596046448</real>
+									<key>type</key>
+									<integer>3</integer>
+									<key>value</key>
+									<array>
+										<real>157</real>
+										<real>233</real>
 									</array>
 								</dict>
 								<dict>
@@ -262,48 +351,146 @@
 										<integer>1</integer>
 									</dict>
 									<key>name</key>
-									<string>scale</string>
+									<string>position</string>
 									<key>time</key>
-									<real>0.5</real>
+									<real>0.53333336114883423</real>
 									<key>type</key>
-									<integer>4</integer>
+									<integer>3</integer>
 									<key>value</key>
 									<array>
-										<real>1</real>
-										<real>1</real>
+										<real>133</real>
+										<real>233</real>
 									</array>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>scale</string>
+							<string>position</string>
 							<key>type</key>
-							<integer>4</integer>
+							<integer>3</integer>
 						</dict>
 					</dict>
 					<key>3</key>
 					<dict>
-						<key>scale</key>
+						<key>displayFrame</key>
 						<dict>
 							<key>keyframes</key>
 							<array>
 								<dict>
 									<key>easing</key>
 									<dict>
-										<key>opt</key>
-										<real>2</real>
 										<key>type</key>
-										<integer>2</integer>
+										<integer>0</integer>
 									</dict>
 									<key>name</key>
-									<string>scale</string>
+									<string>displayFrame</string>
 									<key>time</key>
 									<real>0.0</real>
 									<key>type</key>
-									<integer>4</integer>
+									<integer>7</integer>
 									<key>value</key>
 									<array>
-										<real>1</real>
-										<real>1</real>
+										<string>closed_door.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.13333334028720856</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_01.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.26666668057441711</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_02.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.40000000596046448</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_03.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>displayFrame</string>
+									<key>time</key>
+									<real>0.53333336114883423</real>
+									<key>type</key>
+									<integer>7</integer>
+									<key>value</key>
+									<array>
+										<string>door_ani_04.png</string>
+										<string>images/bankDoors.plist</string>
+									</array>
+								</dict>
+							</array>
+							<key>name</key>
+							<string>displayFrame</string>
+							<key>type</key>
+							<integer>7</integer>
+						</dict>
+						<key>position</key>
+						<dict>
+							<key>keyframes</key>
+							<array>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>position</string>
+									<key>time</key>
+									<real>0.0</real>
+									<key>type</key>
+									<integer>3</integer>
+									<key>value</key>
+									<array>
+										<real>133</real>
+										<real>233</real>
 									</array>
 								</dict>
 								<dict>
@@ -313,33 +500,33 @@
 										<integer>1</integer>
 									</dict>
 									<key>name</key>
-									<string>scale</string>
+									<string>position</string>
 									<key>time</key>
-									<real>0.5</real>
+									<real>0.13333334028720856</real>
 									<key>type</key>
-									<integer>4</integer>
+									<integer>3</integer>
 									<key>value</key>
 									<array>
-										<real>0.05000000074505806</real>
-										<real>1</real>
+										<real>157</real>
+										<real>233</real>
 									</array>
 								</dict>
 							</array>
 							<key>name</key>
-							<string>scale</string>
+							<string>position</string>
 							<key>type</key>
-							<integer>4</integer>
+							<integer>3</integer>
 						</dict>
 					</dict>
 				</dict>
 				<key>baseClass</key>
-				<string>CCLayerColor</string>
+				<string>CCSprite</string>
 				<key>children</key>
 				<array/>
 				<key>customClass</key>
 				<string></string>
 				<key>displayName</key>
-				<string>door</string>
+				<string>door_img</string>
 				<key>memberVarAssignmentName</key>
 				<string></string>
 				<key>memberVarAssignmentType</key>
@@ -347,15 +534,20 @@
 				<key>properties</key>
 				<array>
 					<dict>
+						<key>baseValue</key>
+						<array>
+							<real>157</real>
+							<real>233</real>
+						</array>
 						<key>name</key>
-						<string>contentSize</string>
+						<string>position</string>
 						<key>type</key>
-						<string>Size</string>
+						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>100</real>
-							<real>100</real>
-							<integer>1</integer>
+							<real>157</real>
+							<real>233</real>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
@@ -365,24 +557,19 @@
 						<string>Point</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
+							<real>0.5</real>
 							<real>0.5</real>
 						</array>
 					</dict>
 					<dict>
-						<key>baseValue</key>
-						<array>
-							<real>1</real>
-							<real>1</real>
-						</array>
 						<key>name</key>
 						<string>scale</string>
 						<key>type</key>
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1</real>
-							<real>1</real>
+							<real>0.80000001192092896</real>
+							<real>0.80000001192092896</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -393,62 +580,90 @@
 						<key>type</key>
 						<string>Check</string>
 						<key>value</key>
-						<true/>
+						<false/>
 					</dict>
 					<dict>
-						<key>name</key>
-						<string>touchEnabled</string>
-						<key>platform</key>
-						<string>iOS</string>
-						<key>type</key>
-						<string>Check</string>
-						<key>value</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>mouseEnabled</string>
-						<key>platform</key>
-						<string>Mac</string>
-						<key>type</key>
-						<string>Check</string>
-						<key>value</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>color</string>
-						<key>type</key>
-						<string>Color3</string>
-						<key>value</key>
+						<key>baseValue</key>
 						<array>
-							<integer>94</integer>
-							<integer>8</integer>
-							<integer>2</integer>
+							<string>closed_door.png</string>
+							<string>images/bankPanic.plist</string>
 						</array>
-					</dict>
-					<dict>
 						<key>name</key>
-						<string>opacity</string>
+						<string>displayFrame</string>
 						<key>type</key>
-						<string>Byte</string>
-						<key>value</key>
-						<integer>255</integer>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>blendFunc</string>
-						<key>type</key>
-						<string>Blendmode</string>
+						<string>SpriteFrame</string>
 						<key>value</key>
 						<array>
-							<integer>770</integer>
-							<integer>771</integer>
+							<string>images/bankDoors.plist</string>
+							<string>door_ani_04.png</string>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
+				<key>seqExpanded</key>
+				<true/>
 			</dict>
 			<dict>
+				<key>animatedProperties</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>visible</key>
+						<dict>
+							<key>keyframes</key>
+							<array>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>visible</string>
+									<key>time</key>
+									<real>0.0</real>
+									<key>type</key>
+									<integer>1</integer>
+									<key>value</key>
+									<true/>
+								</dict>
+							</array>
+							<key>name</key>
+							<string>visible</string>
+							<key>type</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+					<key>2</key>
+					<dict>
+						<key>visible</key>
+						<dict>
+							<key>keyframes</key>
+							<array>
+								<dict>
+									<key>easing</key>
+									<dict>
+										<key>type</key>
+										<integer>0</integer>
+									</dict>
+									<key>name</key>
+									<string>visible</string>
+									<key>time</key>
+									<real>0.53333336114883423</real>
+									<key>type</key>
+									<integer>1</integer>
+									<key>value</key>
+									<true/>
+								</dict>
+							</array>
+							<key>name</key>
+							<string>visible</string>
+							<key>type</key>
+							<integer>1</integer>
+						</dict>
+					</dict>
+				</dict>
 				<key>baseClass</key>
 				<string>CCLabelTTF</string>
 				<key>children</key>
@@ -464,15 +679,25 @@
 				<key>properties</key>
 				<array>
 					<dict>
+						<key>baseValue</key>
+						<false/>
+						<key>name</key>
+						<string>visible</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<false/>
+					</dict>
+					<dict>
 						<key>name</key>
 						<string>position</string>
 						<key>type</key>
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>50</real>
-							<real>110</real>
-							<integer>4</integer>
+							<real>117</real>
+							<real>318.48147583007812</real>
+							<integer>0</integer>
 						</array>
 					</dict>
 					<dict>
@@ -528,6 +753,18 @@
 					</dict>
 					<dict>
 						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>dimensions</string>
 						<key>type</key>
 						<string>Size</string>
@@ -563,7 +800,7 @@
 						<string>0</string>
 					</dict>
 				</array>
-				<key>selected</key>
+				<key>seqExpanded</key>
 				<true/>
 			</dict>
 		</array>
@@ -584,8 +821,8 @@
 				<string>Size</string>
 				<key>value</key>
 				<array>
-					<real>200</real>
-					<real>300</real>
+					<real>313</real>
+					<real>461</real>
 					<integer>0</integer>
 				</array>
 			</dict>
@@ -725,13 +962,13 @@
 			<key>chainedSequenceId</key>
 			<integer>0</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.53333336114883423</real>
 			<key>name</key>
 			<string>closing</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.53333336114883423</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>
@@ -759,13 +996,13 @@
 			<key>chainedSequenceId</key>
 			<integer>1</integer>
 			<key>length</key>
-			<real>0.5</real>
+			<real>0.53333336114883423</real>
 			<key>name</key>
 			<string>opening</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
-			<real>0.5</real>
+			<real>0.0</real>
 			<key>resolution</key>
 			<real>30</real>
 			<key>scale</key>

@@ -166,9 +166,9 @@ void BPGameLayer::initObjects()
     for (int i=0; i<12; i++) {
         //  door
         BPDoorNode *pDoor = BPDoorNode::createNode();
-        offset_x = (m_fCellWidth * i) + m_fCellWidth * 0.5;
+        offset_x = (m_fCellWidth * i) + 40 + m_fCellWidth * 0.5;
         pDoor->setAnchorPoint(ccp(0.5, 1));
-        pDoor->setPosition(ccp(offset_x, winSize.height * 0.65));
+        pDoor->setPosition(ccp(offset_x, winSize.height * 0.75));
         pDoor->setDoorNumber(i+1);
         addChild(pDoor, 1);
         m_arrDoorList->addObject(pDoor);

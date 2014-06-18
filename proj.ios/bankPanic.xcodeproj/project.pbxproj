@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1235CD7F1950933000DBA998 /* BPScrollableBGLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1235CD7D1950933000DBA998 /* BPScrollableBGLayer.cpp */; };
 		1251C72C190AC3030006EA41 /* BPElevatorNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1251C72A190AC3030006EA41 /* BPElevatorNode.cpp */; };
 		12844ACC1908275E00FD82B1 /* BPDoorNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12844ACA1908275E00FD82B1 /* BPDoorNode.cpp */; };
 		15A3D8FF1682F7D5002FB0C5 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88B1682F7D5002FB0C5 /* b2BroadPhase.cpp */; };
@@ -285,6 +286,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1235CD7D1950933000DBA998 /* BPScrollableBGLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BPScrollableBGLayer.cpp; sourceTree = "<group>"; };
+		1235CD7E1950933000DBA998 /* BPScrollableBGLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScrollableBGLayer.h; sourceTree = "<group>"; };
 		1251C72A190AC3030006EA41 /* BPElevatorNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BPElevatorNode.cpp; sourceTree = "<group>"; };
 		1251C72B190AC3030006EA41 /* BPElevatorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPElevatorNode.h; sourceTree = "<group>"; };
 		12844ACA1908275E00FD82B1 /* BPDoorNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BPDoorNode.cpp; sourceTree = "<group>"; };
@@ -1850,6 +1853,8 @@
 				1251C72B190AC3030006EA41 /* BPElevatorNode.h */,
 				C7182B02190FD7B100F0C934 /* BPHumanNode.cpp */,
 				C7182B03190FD7B100F0C934 /* BPHumanNode.h */,
+				1235CD7D1950933000DBA998 /* BPScrollableBGLayer.cpp */,
+				1235CD7E1950933000DBA998 /* BPScrollableBGLayer.h */,
 			);
 			name = game;
 			path = ../Classes/game;
@@ -2031,6 +2036,7 @@
 				15A3D9A51682F7F9002FB0C5 /* cpBBTree.c in Sources */,
 				15A3D9A61682F7F9002FB0C5 /* cpBody.c in Sources */,
 				15A3D9A71682F7F9002FB0C5 /* cpCollision.c in Sources */,
+				1235CD7F1950933000DBA998 /* BPScrollableBGLayer.cpp in Sources */,
 				15A3D9A81682F7F9002FB0C5 /* cpHashSet.c in Sources */,
 				15A3D9A91682F7F9002FB0C5 /* cpPolyShape.c in Sources */,
 				15A3D9AA1682F7F9002FB0C5 /* cpShape.c in Sources */,
