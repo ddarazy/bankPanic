@@ -59,6 +59,7 @@ protected:
     virtual bool onAssignCCBMemberVariable(CCObject* pTarget, const char* pMemberVariableName, CCNode* pNode)
     {
         CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "m_pTopBoard", CCNode*, m_pTopBoard);
+        CCB_MEMBERVARIABLEASSIGNER_GLUE_WEAK(this, "m_pFenceNode", CCNode*, m_pFenceNode);
         return false;
     };
     
@@ -82,6 +83,8 @@ protected:
     void doorsStatusCheck();
     void doorsCancelResearvedOpen();
     void visibleDoorsCheck();
+    
+    virtual void update(float dt);
 
     
     
@@ -122,7 +125,11 @@ protected:
     
     CCArray                     *m_arrBGList;
     
+    CCNode                      *m_pFenceNode;
     
+    
+    bool                        m_bUpdateSchedule;
+    bool                        m_bAppearHuman;
 
 };
 

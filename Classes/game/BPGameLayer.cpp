@@ -16,9 +16,9 @@
 #define kMAP_DISTANCE_PER_SECOND_MIN 1000
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define kMAP_MOVE_VELOCITY  7           //  number is high -> slow, number is low -> fast
+#define kMAP_MOVE_VELOCITY  7           //  if number is high -> slow, if number is low -> fast
 #else
-#define kMAP_MOVE_VELOCITY  5           //  number is high -> slow, number is low -> fast
+#define kMAP_MOVE_VELOCITY  5           //  if number is high -> slow, if number is low -> fast
 #endif
 
 BPGameLayer::~BPGameLayer()
@@ -80,30 +80,47 @@ void BPGameLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
     if (isOpeningDoor())
     {
         CCPoint loc = pTouch->getLocation();
-        
-        for (int i=0; i<m_arrDoorList->count(); i++) {
-            BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+        CCObject *pObj = NULL;
+        CCARRAY_FOREACH(m_arrDoorList, pObj)
+        {
+            BPDoorNode *pDoor = (BPDoorNode*)pObj;
             if (pDoor->IsOpenDoor()) {
                 if (pDoor->boundingBox().containsPoint(loc)) {
-                    CCLog("fire");
                     CCParticleSystemQuad *pExplode = (CCParticleSystemQuad*)ITGUtil::sharedUtils()->getNodeFromReadCCBI("BPBloodEffect.ccbi", NULL);
                     addChild(pExplode, 1000);
                     pExplode->setPosition(loc);
                     pExplode->setAutoRemoveOnFinish(true);
-//                    pDoor->setOpenDoor(false);
                     pDoor->closeDoor();
-
+                    
                     pExplode->resetSystem();
                     
-                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
+                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(pDoor->getDoorNumber()-1);
                     pElevator->resetAppearHuman();
                     pElevator->startAppearHuman();
-
-                    break;
                 }
             }
-            
         }
+//        for (int i=0; i<m_arrDoorList->count(); i++) {
+//            BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+//            if (pDoor->IsOpenDoor()) {
+//                if (pDoor->boundingBox().containsPoint(loc)) {
+//                    CCParticleSystemQuad *pExplode = (CCParticleSystemQuad*)ITGUtil::sharedUtils()->getNodeFromReadCCBI("BPBloodEffect.ccbi", NULL);
+//                    addChild(pExplode, 1000);
+//                    pExplode->setPosition(loc);
+//                    pExplode->setAutoRemoveOnFinish(true);
+//                    pDoor->closeDoor();
+//
+//                    pExplode->resetSystem();
+//                    
+//                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
+//                    pElevator->resetAppearHuman();
+//                    pElevator->startAppearHuman();
+//
+//                    break;
+//                }
+//            }
+//            
+//        }
         
     }
     else
@@ -117,8 +134,14 @@ void BPGameLayer::ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEven
 void BPGameLayer::arrivedHuman(BPElevatorNode *pElevator)
 {
     CCLog("BPGameLayer::arrivedHuman : %d", pElevator->getElevatorNumber());
-    visibleDoorsCheck();
-    doorsStatusCheck();
+    if (!m_bUpdateSchedule) {
+        m_bUpdateSchedule = true;
+        scheduleUpdate();
+    }
+//    kGAME_STATUS_DOOR_MOVING_STOP
+    m_bAppearHuman = true;
+//    visibleDoorsCheck();
+//    doorsStatusCheck();
 }
 
 
@@ -127,12 +150,20 @@ void BPGameLayer::arrivedHuman(BPElevatorNode *pElevator)
 
 bool BPGameLayer::isOpeningDoor()
 {
-    for (int i=0; i<m_arrDoorList->count(); i++) {
-        BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+    CCObject *pObj = NULL;
+    CCARRAY_FOREACH(m_arrDoorList, pObj)
+    {
+        BPDoorNode *pDoor = (BPDoorNode*)pObj;
         if (pDoor->IsOpenDoor()) {
             return true;
         }
     }
+//    for (int i=0; i<m_arrDoorList->count(); i++) {
+//        BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+//        if (pDoor->IsOpenDoor()) {
+//            return true;
+//        }
+//    }
     return false;
 }
 
@@ -189,6 +220,11 @@ void BPGameLayer::initObjects()
         pTargetMark->setAnchorPoint(ccp(0.5, 0.5));
         pTargetMark->setPosition(ccp(m_fCellWidth * i + m_fCellWidth * 0.5, winSize.height * 0.45));
         addChild(pTargetMark, 10);
+        
+    }
+    
+    //  fence
+    {
         
     }
 }
@@ -446,6 +482,61 @@ void BPGameLayer::visibleDoorsCheck()
         {
             //  disable open
             pDoor->setEnableOpenDoor(false);
+        }
+    }
+
+}
+
+void BPGameLayer::update(float dt)
+{
+//    visibleDoorsCheck();
+//    doorsStatusCheck();
+
+    if (m_eGameStatus == kGAME_STATUS_HUMAN_APPEAR_READY)
+    {
+        m_fDeltaTime += dt;
+        if (m_fDeltaTime > 1) {
+            m_fDeltaTime = 0;
+            visibleDoorsCheck();
+            doorsStatusCheck();
+            CCLog("BPGameLayer::update");
+            
+            CCObject *pObj = NULL;
+
+            CCARRAY_FOREACH(m_arrDoorList, pObj)
+            {
+                BPDoorNode *pDoor = (BPDoorNode*)pObj;
+                if (pDoor->getEnableOpenDoor() && !pDoor->IsOpenDoor()) {
+                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(pDoor->getDoorNumber()-1);
+                    if (pElevator->IsArrivedHuman()) {
+                        pDoor->prepareOpenDoor();
+                        break;
+                    }
+                }
+            }
+            
+//            for (int i=0; i<m_arrDoorList->count(); i++) {
+//                BPDoorNode *pDoor = (BPDoorNode*)m_arrDoorList->objectAtIndex(i);
+//                if (pDoor->getEnableOpenDoor() && !pDoor->IsOpenDoor())
+//                {
+//                    BPElevatorNode *pElevator = (BPElevatorNode*)m_arrElevatorList->objectAtIndex(i);
+//                    if (pElevator->IsArrivedHuman())
+//                    {
+//                        pDoor->prepareOpenDoor();
+//
+//                        break;
+//                    }
+//                }
+//            }
+        }
+    }
+    else if(m_eGameStatus == kGAME_STATUS_DOOR_MOVING_STOP)
+    {
+        m_fNoMovingTimeDelta += dt;
+        if (m_fNoMovingTimeDelta > m_fNoMovingLimitTime) {
+            m_eGameStatus = kGAME_STATUS_HUMAN_APPEAR_READY;
+            m_fNoMovingTimeDelta = 0;
+            m_fDeltaTime = 0;
         }
     }
 

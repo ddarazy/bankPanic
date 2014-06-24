@@ -36,13 +36,13 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {180, 120}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, 0}</string>
 			<key>spriteSize</key>
 			<string>{180, 120}</string>
 			<key>spriteSourceSize</key>
 			<string>{180, 120}</string>
 			<key>spriteTrimmed</key>
-			<true/>
+			<false/>
 			<key>textureRect</key>
 			<string>{{0, 319}, {180, 120}}</string>
 			<key>textureRotated</key>
@@ -89,6 +89,28 @@
 			<false/>
 			<key>textureRect</key>
 			<string>{{0, 0}, {141, 317}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>dollar.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {19, 35}}</string>
+			<key>spriteOffset</key>
+			<string>{0, 0}</string>
+			<key>spriteSize</key>
+			<string>{19, 35}</string>
+			<key>spriteSourceSize</key>
+			<string>{19, 35}</string>
+			<key>spriteTrimmed</key>
+			<false/>
+			<key>textureRect</key>
+			<string>{{143, 194}, {19, 35}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
